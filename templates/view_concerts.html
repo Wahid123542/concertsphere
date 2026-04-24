@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-geo-alt-fill me-2"></i>View Concerts</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-8">
+                <label class="form-label">Filter by City</label>
+                <select name="city" class="form-select">
+                    <option value="">All Cities</option>
+                    {% for city in cities %}
+                        <option value="{{ city.city }}" {% if selected_city == city.city %}selected{% endif %}>
+                            {{ city.city }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+                <a href="{{ url_for('view_concerts') }}" class="btn btn-outline-light w-100">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <input class="form-control mb-3 table-search" placeholder="Search concerts...">
+        {% if concerts %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle searchable-table">
+                <thead>
+                    <tr>
+                        <th>Concert ID</th>
+                        <th>Venue</th>
+                        <th>City</th>
+                        <th>Date</th>
+                        <th>Artist ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for concert in concerts %}
+                    <tr>
+                        <td>{{ concert.concertid }}</td>
+                        <td>{{ concert.venuename }}</td>
+                        <td>{{ concert.city }}</td>
+                        <td>{{ concert.concertdate }}</td>
+                        <td>{{ concert.artistid }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-muted mb-0">No concerts found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

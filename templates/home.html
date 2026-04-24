@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="tm-container">
+
+    <div class="tm-header">
+        <span class="tm-pill">Concert Ticket Dashboard</span>
+        <h1>ConcertSphere</h1>
+        <p>Manage concert data, sell tickets, and view customer and revenue reports.</p>
+    </div>
+
+    <div class="tm-stats">
+        <div class="tm-stat">
+            <i class="bi bi-mic-fill"></i>
+            <div>
+                <strong>{{ stats.artists }}</strong>
+                <span>Total Artists</span>
+            </div>
+        </div>
+
+        <div class="tm-stat">
+            <i class="bi bi-calendar-event-fill"></i>
+            <div>
+                <strong>{{ stats.concerts }}</strong>
+                <span>Total Concerts</span>
+            </div>
+        </div>
+
+        <div class="tm-stat">
+            <i class="bi bi-person-fill"></i>
+            <div>
+                <strong>{{ stats.customers }}</strong>
+                <span>Total Customers</span>
+            </div>
+        </div>
+
+        <div class="tm-stat">
+            <i class="bi bi-ticket-perforated-fill"></i>
+            <div>
+                <strong>{{ stats.tickets }}</strong>
+                <span>Tickets Sold</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tm-grid">
+
+        <div class="tm-group">
+            <h3><i class="bi bi-gear-fill me-2"></i>Manage</h3>
+
+            <a href="{{ url_for('add_artist') }}" class="tm-card">
+                <i class="bi bi-mic-fill"></i>
+                <div>
+                    <strong>Add Artist</strong>
+                    <span>Create artist profile</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('add_customer') }}" class="tm-card">
+                <i class="bi bi-person-plus-fill"></i>
+                <div>
+                    <strong>Add Customer</strong>
+                    <span>Register a customer</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('add_concert') }}" class="tm-card">
+                <i class="bi bi-calendar-event-fill"></i>
+                <div>
+                    <strong>Add Concert</strong>
+                    <span>Schedule a concert</span>
+                </div>
+            </a>
+
+            <!-- ⭐ MAIN ACTION (highlighted) -->
+            <a href="{{ url_for('add_ticket') }}" class="tm-card highlight">
+                <i class="bi bi-ticket-perforated-fill"></i>
+                <div>
+                    <strong>Sell Ticket</strong>
+                    <span>Record ticket purchase</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="tm-group">
+            <h3><i class="bi bi-bar-chart-fill me-2"></i>Explore</h3>
+
+            <a href="{{ url_for('view_concerts') }}" class="tm-card">
+                <i class="bi bi-geo-alt-fill"></i>
+                <div>
+                    <strong>Concerts by City</strong>
+                    <span>Filter concerts by location</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('concerts_by_artist') }}" class="tm-card">
+                <i class="bi bi-star-fill"></i>
+                <div>
+                    <strong>Concerts by Artist</strong>
+                    <span>View artist concert schedule</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('spending_by_customer') }}" class="tm-card">
+                <i class="bi bi-credit-card-fill"></i>
+                <div>
+                    <strong>Customer Spending</strong>
+                    <span>Calculate total customer spending</span>
+                </div>
+            </a>
+
+            <a href="{{ url_for('top_artists') }}" class="tm-card">
+                <i class="bi bi-trophy-fill"></i>
+                <div>
+                    <strong>Top 3 Artists</strong>
+                    <span>Rank artists by ticket revenue</span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="tm-bonus-center">
+        <a href="{{ url_for('bonus_orders') }}" class="tm-card bonus">
+            <i class="bi bi-receipt-cutoff"></i>
+            <div>
+                <strong>Bonus: Customer Order Details</strong>
+                <span>View customer, order, concert, ticket, and payment details</span>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

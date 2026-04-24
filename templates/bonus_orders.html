@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-stars me-2"></i>Bonus: Customer Order Details</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-8">
+                <label class="form-label">Choose Customer</label>
+                <select name="customer_id" class="form-select">
+                    <option value="">Select a customer</option>
+                    {% for customer in customers %}
+                        <option value="{{ customer.customerid }}" {% if selected_customer == customer.customerid|string %}selected{% endif %}>
+                            {{ customer.customername }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">View Orders</button>
+                <a href="{{ url_for('bonus_orders') }}" class="btn btn-outline-light w-100">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <input class="form-control mb-3 table-search" placeholder="Search order details...">
+        {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle searchable-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Payment Method</th>
+                        <th>Artist</th>
+                        <th>Venue</th>
+                        <th>City</th>
+                        <th>Concert Date</th>
+                        <th>Seat</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.customername }}</td>
+                        <td>{{ order.orderid }}</td>
+                        <td>{{ order.orderdate }}</td>
+                        <td>{{ order.paymentmethod }}</td>
+                        <td>{{ order.artistname }}</td>
+                        <td>{{ order.venuename }}</td>
+                        <td>{{ order.city }}</td>
+                        <td>{{ order.concertdate }}</td>
+                        <td>{{ order.seatnumber }}</td>
+                        <td>${{ '%.2f'|format(order.price|float) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% elif selected_customer %}
+            <p class="text-muted mb-0">No orders found for that customer.</p>
+        {% else %}
+            <p class="text-muted mb-0">Select a customer to view order details.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-person-fill-add me-2"></i>Add Customer</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <form method="POST" class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Customer Name</label>
+                <input type="text" name="customer_name" class="form-control" placeholder="Enter customer name" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill me-1"></i>Add Customer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

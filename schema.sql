@@ -1,0 +1,44 @@
+DROP TABLE IF EXISTS Ticket CASCADE;
+DROP TABLE IF EXISTS Orders CASCADE;
+DROP TABLE IF EXISTS Concert CASCADE;
+DROP TABLE IF EXISTS Customer CASCADE;
+DROP TABLE IF EXISTS Artist CASCADE;
+
+CREATE TABLE Artist (
+    ArtistId SERIAL PRIMARY KEY,
+    ArtistName VARCHAR(100) NOT NULL,
+    Genre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Customer (
+    CustomerId SERIAL PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Concert (
+    ConcertId SERIAL PRIMARY KEY,
+    VenueName VARCHAR(100) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    ConcertDate DATE NOT NULL,
+    ArtistId INT NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES Artist(ArtistId) ON DELETE CASCADE
+);
+
+CREATE TABLE Orders (
+    OrderId SERIAL PRIMARY KEY,
+    CustomerId INT NOT NULL,
+    OrderDate DATE NOT NULL,
+    PaymentMethod VARCHAR(30) NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId) ON DELETE CASCADE
+);
+
+CREATE TABLE Ticket (
+    TicketId SERIAL PRIMARY KEY,
+    ConcertId INT NOT NULL,
+    OrderId INT NOT NULL,
+    SeatNumber VARCHAR(20) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL CHECK (Price > 0),
+    FOREIGN KEY (ConcertId) REFERENCES Concert(ConcertId) ON DELETE CASCADE,
+    FOREIGN KEY (OrderId) REFERENCES Orders(OrderId) ON DELETE CASCADE,
+    UNIQUE (ConcertId, SeatNumber)
+);

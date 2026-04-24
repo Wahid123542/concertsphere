@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-credit-card-2-front-fill me-2"></i>Add Ticket Purchase</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        {% if concerts and customers %}
+        <form method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Concert</label>
+                <select name="concert_id" class="form-select" required>
+                    <option value="">Select a concert</option>
+                    {% for concert in concerts %}
+                        <option value="{{ concert.concertid }}">
+                            {{ concert.venuename }} - {{ concert.city }} - {{ concert.concertdate }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Customer</label>
+                <select name="customer_id" class="form-select" required>
+                    <option value="">Select a customer</option>
+                    {% for customer in customers %}
+                        <option value="{{ customer.customerid }}">{{ customer.customername }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Order Date</label>
+                <input type="date" name="order_date" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Payment Method</label>
+                <select name="payment_method" class="form-select" required>
+                    <option value="">Select method</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Cash">Cash</option>
+                    <option value="PayPal">PayPal</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Seat Number</label>
+                <input type="text" name="seat_number" class="form-control" placeholder="Example: A101" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Price</label>
+                <input type="number" step="0.01" min="1" name="price" class="form-control" placeholder="Enter price" required>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill me-1"></i>Add Ticket Purchase
+                </button>
+            </div>
+        </form>
+        {% else %}
+            <p class="text-muted mb-3">
+                You need at least one concert and one customer before adding a ticket.
+            </p>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('add_concert') }}" class="btn btn-primary">Add Concert</a>
+                <a href="{{ url_for('add_customer') }}" class="btn btn-outline-light">Add Customer</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

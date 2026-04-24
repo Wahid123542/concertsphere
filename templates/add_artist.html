@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-mic-fill me-2"></i>Add Artist</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <form method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Artist Name</label>
+                <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Genre</label>
+                <input type="text" name="genre" class="form-control" placeholder="Enter genre" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill me-1"></i>Add Artist
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

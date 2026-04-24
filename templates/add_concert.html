@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-ticket-perforated-fill me-2"></i>Add Concert</h2>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-light">Back to Home</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        {% if artists %}
+        <form method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Venue Name</label>
+                <input type="text" name="venue_name" class="form-control" placeholder="Enter venue name" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">City</label>
+                <input type="text" name="city" class="form-control" placeholder="Enter city" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Concert Date</label>
+                <input type="date" name="concert_date" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Artist</label>
+                <select name="artist_id" class="form-select" required>
+                    <option value="">Select an artist</option>
+                    {% for artist in artists %}
+                        <option value="{{ artist.artistid }}">{{ artist.artistname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill me-1"></i>Add Concert
+                </button>
+            </div>
+        </form>
+        {% else %}
+            <p class="text-muted mb-3">No artists found. Please add an artist first.</p>
+            <a href="{{ url_for('add_artist') }}" class="btn btn-primary">Go to Add Artist</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
