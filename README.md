@@ -2,8 +2,8 @@
 
 ## 📸 Screenshots
 
-![Homepage](path/to/homepage.png)
-![Customer Spending](path/to/customer-spending.png)
+![Homepage](images/homepage.png)
+![Customer Spending](images/concert.png)
 
 ---
 
